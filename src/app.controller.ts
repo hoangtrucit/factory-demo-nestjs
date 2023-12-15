@@ -11,7 +11,7 @@ export class AppController {
   ) {}
 
   @Get('/user')
-  getUser(): string {
+  getUser() {
     return this.userService.get();
   }
 
@@ -22,7 +22,7 @@ export class AppController {
   }
 
   @Get('/post')
-  getPost(): string {
+  getPost() {
     return this.postService.get();
   }
 }
