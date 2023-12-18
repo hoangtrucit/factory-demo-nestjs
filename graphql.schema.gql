@@ -1,0 +1,22 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Mutation {
+  upvotePost(postId: Float!): Boolean!
+}
+
+type PostRecipe {
+  id: String!
+  title: String!
+}
+
+type Query {
+  user: [UserRecipe!]!
+}
+
+type UserRecipe {
+  email: String!
+  id: String!
+  posts: [PostRecipe!]!
+}

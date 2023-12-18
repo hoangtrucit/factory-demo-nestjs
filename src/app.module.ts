@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { UserModule } from './user/user.module';
 import { PostModule } from './post/post.module';
 import { RepositoriesModule } from './postgresql/repositories.module';
+import { GraphModule } from './graphql/graphql.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { RepositoriesModule } from './postgresql/repositories.module';
       username: 'postgres',
       password: 'pwd',
     }),
+    GraphModule,
   ],
   controllers: [AppController],
   providers: [],
