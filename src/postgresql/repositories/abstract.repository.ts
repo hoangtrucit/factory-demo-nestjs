@@ -1,6 +1,7 @@
 import {
   DeepPartial,
   FindManyOptions,
+  FindOneOptions,
   FindOptionsWhere,
   ObjectLiteral,
   Repository,
@@ -32,6 +33,10 @@ export class AbstractRepository<Entity extends ObjectLiteral>
 
   constructor(baseRepository: Repository<Entity>) {
     this.repository = baseRepository;
+  }
+
+  async findOne(options: FindOneOptions<Entity>): Promise<Entity | null> {
+    return await this.repository.findOne(options);
   }
 
   async findById(id): Promise<Entity | null> {

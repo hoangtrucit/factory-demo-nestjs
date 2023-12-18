@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+  db:
+    container_name: om2_cod_pg
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=pwd
+      - POSTGRES_DB=cod
+    volumes:
+      - om2_cod_pg_data:/var/lib/postgresql/data
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 45321:5432
+    networks:
+      - om2_cod_network
+
+networks:
+  om2_cod_network:
+    driver: bridge
+
+volumes:
+  om2_cod_pg_data:
