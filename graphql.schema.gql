@@ -2,21 +2,25 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Mutation {
-  upvotePost(postId: Float!): Boolean!
+input CreateUserInput {
+  email: String!
+  userName: String!
 }
 
-type PostRecipe {
+type CreateUserRecipe {
   id: String!
-  title: String!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): CreateUserRecipe!
 }
 
 type Query {
-  user: [UserRecipe!]!
+  users: [UserRecipe!]!
 }
 
 type UserRecipe {
   email: String!
   id: String!
-  posts: [PostRecipe!]!
+  userName: String!
 }

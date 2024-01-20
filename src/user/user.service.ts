@@ -1,9 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import {
+  CreateUserRequest,
   USER_SERVICE_NAME,
   UserServiceClient,
 } from '@share/protobuf/gRPC/generate/index.app.payment.user.service.v1';
 import { ClientGrpc } from '@nestjs/microservices';
+import { lastValueFrom } from 'rxjs';
+import { UserModel } from '@share/protobuf/gRPC/generate/index.app.payment.base.user.v1';
 
 export const USER_TOKEN_SERVICE = 'USER MODULE USER_TOKEN_SERVICE';
 
@@ -19,7 +22,15 @@ export class UserService {
       this.client.getService<UserServiceClient>(USER_SERVICE_NAME);
   }
 
-  async getUsers() {
-    return await this.invoiceServiceClient.getUsers(null);
+  async getUsers(): Promise<UserModel[]> {
+    const result = await lastValueFrom(
+      this.invoiceServiceClient.getUsers(null),
+    );
+
+    return result.users;
+  }
+
+  async createUser(request: CreateUserRequest): Promise<{ id: string }> {
+    return await lastValueFrom(this.invoiceServiceClient.createUser(request));
   }
 }
