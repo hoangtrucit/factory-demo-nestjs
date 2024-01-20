@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { USER_TOKEN_SERVICE, UserService } from './user.service';
 import { UserController } from './user.controller';
+import { ClientsModule } from '@nestjs/microservices';
+import { clientsModuleOptions } from './user.grpc.setup';
 
 @Module({
-  imports: [],
+  imports: [ClientsModule.register(clientsModuleOptions)],
   controllers: [UserController],
   providers: [
     {
