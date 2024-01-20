@@ -1,23 +1,19 @@
 // Libs importing
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ObjectLiteral, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 import { AbstractRepository, IRepository } from './abstract.repository';
 import { PostEntity } from '../entities';
-import { IPostEntity } from '../entities/post.entity';
 
 export const I_POST_REPOSITORY = 'I_POST_REPOSITORY';
 
-export interface IPostRepository<Entity extends ObjectLiteral>
-  extends IRepository<Entity> {
-  //
-}
+export interface IPostRepository extends IRepository<PostEntity> {}
 
 @Injectable()
 export class PostRepository
   extends AbstractRepository<PostEntity>
-  implements IPostRepository<IPostEntity>
+  implements IPostRepository
 {
   constructor(
     @InjectRepository(PostEntity)

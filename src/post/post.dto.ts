@@ -1,8 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { IPostEntity } from 'src/postgresql/entities/post.entity';
 
 @ObjectType()
-export class PostRecipe implements IPostEntity {
+export class PostRecipe {
   @Field(() => String)
   id: string;
 

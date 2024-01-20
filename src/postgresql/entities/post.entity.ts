@@ -6,15 +6,11 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { IUserEntity, UserEntity } from './user.entity';
-
-export interface IPostEntity {
-  id: string;
-  title: string;
-}
+import { UserEntity } from './user.entity';
+import { AbstractEntity } from './abstract.entity';
 
 @Entity({ name: 'post' })
-export class PostEntity implements IPostEntity {
+export class PostEntity extends AbstractEntity<PostEntity> {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -36,5 +32,5 @@ export class PostEntity implements IPostEntity {
       referencedColumnName: 'id',
     },
   })
-  users: IUserEntity[];
+  users: UserEntity[];
 }

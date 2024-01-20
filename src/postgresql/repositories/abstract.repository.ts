@@ -1,7 +1,7 @@
 import {
+  DataSource,
   DeepPartial,
   FindManyOptions,
-  FindOneOptions,
   FindOptionsWhere,
   ObjectLiteral,
   Repository,
@@ -15,7 +15,7 @@ export interface IRepository<Entity extends ObjectLiteral> {
 
   findAll(options?: FindManyOptions<Entity>): Promise<Entity[] | null>;
 
-  create(doc: DeepPartial<Entity>): Promise<Entity | null>;
+  create(doc: DeepPartial<Entity>): Entity;
 
   updateById(id: number, doc: DeepPartial<Entity>): Promise<Entity | null>;
 
@@ -30,13 +30,11 @@ export class AbstractRepository<Entity extends ObjectLiteral>
   implements IRepository<Entity>
 {
   protected readonly repository: Repository<Entity>;
+  public readonly dataSource: DataSource;
 
-  constructor(baseRepository: Repository<Entity>) {
+  constructor(baseRepository: Repository<Entity>, dataSource?: DataSource) {
     this.repository = baseRepository;
-  }
-
-  async findOne(options: FindOneOptions<Entity>): Promise<Entity | null> {
-    return await this.repository.findOne(options);
+    this.dataSource = dataSource;
   }
 
   async findById(id): Promise<Entity | null> {
@@ -67,8 +65,8 @@ export class AbstractRepository<Entity extends ObjectLiteral>
     return pagination.paginate<Entity>(selectQueryBuilder, options);
   }
 
-  async create(doc: DeepPartial<Entity>): Promise<Entity> {
-    return await this.repository.create(doc);
+  create(doc: DeepPartial<Entity>): Entity {
+    return this.repository.create(doc);
   }
 
   async updateById(id: number, doc: DeepPartial<Entity>): Promise<Entity> {

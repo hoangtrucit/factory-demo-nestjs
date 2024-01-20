@@ -27,7 +27,7 @@ export class RepositoriesModule {
             port: options.port,
             username: options.username,
             password: options.password,
-            synchronize: false,
+            synchronize: false, // not recommended on production
             logging: true,
             entities: entities,
             autoLoadEntities: false,

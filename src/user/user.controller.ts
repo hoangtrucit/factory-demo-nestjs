@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 import { USER_TOKEN_SERVICE, UserService } from './user.service';
-import { UserDTO } from './user.dto';
+import { UserDTO, UserResponse } from './user.dto';
+import { plainToInstance } from 'class-transformer';
 
 @Controller('user')
 export class UserController {
@@ -12,8 +13,9 @@ export class UserController {
   }
 
   @Post('/v1')
-  postUser(@Body() userDTO: UserDTO): string {
-    console.log('🚀🚀🚀 file: app.controller.ts [line 21] ', userDTO);
-    return;
+  async postUser(@Body() userDTO: UserDTO): Promise<UserResponse> {
+    const result = await this.userService.create(userDTO);
+
+    return plainToInstance(UserResponse, result);
   }
 }
